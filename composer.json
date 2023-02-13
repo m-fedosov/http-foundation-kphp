@@ -1,0 +1,25 @@
+{
+    "name": "symfony/http-foundation-kphp",
+    "type": "library",
+    "description": "Defines an object-oriented layer for the HTTP specification",
+    "keywords": [],
+    "homepage": "https://symfony.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fabien Potencier",
+            "email": "fabien@symfony.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": { "Symfony\\Component\\HttpFoundation\\": "" }
+    },
+    "minimum-stability": "dev"
+}
