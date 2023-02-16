@@ -1,6 +1,8 @@
 <?php
 
 namespace Symfony\Component\HttpFoundation;
+
+use Symfony\Component\HttpFoundation\Request;
 //
 //use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 //
@@ -25,25 +27,29 @@ class ParameterBag
     {
         $this->parameters = $parameters;
     }
-//
-//    /**
-//     * Returns the parameters.
-//     *
-//     * @param string|null $key The name of the parameter to return or null to get them all
-//     */
-//    public function all(string $key = null): array
-//    {
-//        if (null === $key) {
-//            return $this->parameters;
-//        }
-//
-//        if (!\is_array($value = $this->parameters[$key] ?? [])) {
+
+    /**
+     * Returns the parameters.
+     *
+     * @param string|null $key The name of the parameter to return or null to get them all
+     * @return mixed
+     */
+    // TODO add BadRequestException
+    public function all($key = null)
+    {
+        if (null === $key) {
+            return $this->parameters;
+        }
+
+        $value = $this->parameters[$key] ?? [];
+
+//        if (!\is_array($value)) {
 //            throw new BadRequestException(sprintf('Unexpected value for parameter "%s": expecting "array", got "%s".', $key, get_debug_type($value)));
 //        }
-//
-//        return $value;
-//    }
-//
+
+        return $value;
+    }
+
 //    /**
 //     * Returns the parameter keys.
 //     */
@@ -69,8 +75,8 @@ class ParameterBag
 //    }
 
     /**
-     * @param string|null $default
-     * @return mixed|null
+     * @param mixed $default
+     * @return mixed
      */
     public function get(string $key, $default = null)
     {

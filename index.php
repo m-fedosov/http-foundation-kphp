@@ -15,6 +15,29 @@ $request = Request::createFromGlobals();
 //
 $path = $request->getPathInfo();
 var_dump($path);
+$name = $request->query->get('name', 'World');
+var_dump($name);
+
+$request = Request::create(
+    '/hello-world/enter',
+    'GET',
+    ['name' => 'Fabien']
+);
+
+$path = $request->getPathInfo();
+var_dump($path);
+$name = $request->query->get('name', 'World');
+var_dump($name);
+$basePath = $request->getBasePath();
+var_dump($basePath);
+
+$request = Request::create(
+    '/a/b/c/d',
+    'GET',
+    ['name' => 'Fabien']
+);
+
+var_dump($request->getRelativeUriForPath("/a/b/c/other"));
 //if (isset($map[$path])) {
 //    require $map[$path];
 //} else {

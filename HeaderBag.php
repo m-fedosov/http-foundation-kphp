@@ -50,23 +50,23 @@ class HeaderBag
 //
 //        return $content;
 //    }
-//
-//    /**
-//     * Returns the headers.
-//     *
-//     * @param string|null $key The name of the headers to return or null to get them all
-//     *
-//     * @return array<string, array<int, string|null>>|array<int, string|null>
-//     */
-//    public function all(string $key = null): array
-//    {
-//        if (null !== $key) {
-//            return $this->headers[strtr($key, self::UPPER, self::LOWER)] ?? [];
-//        }
-//
-//        return $this->headers;
-//    }
-//
+
+    /**
+     * Returns the headers.
+     *
+     * @param string|null $key The name of the headers to return or null to get them all
+     * @return any[]|mixed
+     */
+    // @return array<string, array<int, string|null>>|array<int, string|null>
+    public function all($key = null)
+    {
+        if (null !== $key) {
+            return $this->headers[strtr($key, self::UPPER, self::LOWER)] ?? [];
+        }
+
+        return $this->headers;
+    }
+
 //    /**
 //     * Returns the parameter keys.
 //     *
@@ -95,25 +95,25 @@ class HeaderBag
 //            $this->set($key, $values);
 //        }
 //    }
-//
-//    /**
-//     * Returns the first header by name or the default one.
-//     */
-//    public function get(string $key, string $default = null): ?string
-//    {
-//        $headers = $this->all($key);
-//
-//        if (!$headers) {
-//            return $default;
-//        }
-//
-//        if (null === $headers[0]) {
-//            return null;
-//        }
-//
-//        return (string) $headers[0];
-//    }
-//
+
+    /**
+     * Returns the first header by name or the default one.
+     */
+    public function get(string $key, string $default = null): ?string
+    {
+        $headers = $this->all($key);
+
+        if (!$headers) {
+            return $default;
+        }
+
+        if (null === $headers[0]) {
+            return null;
+        }
+
+        return (string) $headers[0];
+    }
+
     /**
      * Sets a header by name.
      *
