@@ -331,7 +331,7 @@ class Request
      * @param mixed                $server     The server parameters ($_SERVER)
      * @param string|false|null    $content    The raw body data
      */
-    public static function create($uri, $method = 'GET', $parameters = [], $cookies = [], $files = [], $server = [], $content = null): static
+    public static function create($uri, $method = 'GET', $parameters = [], $cookies = [], $files = [], $server = [], $content = null): Request
     {
         $server = array_replace([
             'SERVER_NAME' => 'localhost',
@@ -1100,26 +1100,27 @@ class Request
 //
 //        return '' === $qs ? null : $qs;
 //    }
-//
-//    /**
-//     * Checks whether the request is secure or not.
-//     *
-//     * This method can read the client protocol from the "X-Forwarded-Proto" header
-//     * when trusted proxies were set via "setTrustedProxies()".
-//     *
-//     * The "X-Forwarded-Proto" header must contain the protocol: "https" or "http".
-//     */
-//    public function isSecure(): bool
-//    {
+
+// TODO: isSecure
+    /**
+     * Checks whether the request is secure or not.
+     *
+     * This method can read the client protocol from the "X-Forwarded-Proto" header
+     * when trusted proxies were set via "setTrustedProxies()".
+     *
+     * The "X-Forwarded-Proto" header must contain the protocol: "https" or "http".
+     */
+    public function isSecure(): bool
+    {
 //        if ($this->isFromTrustedProxy() && $proto = $this->getTrustedValues(self::HEADER_X_FORWARDED_PROTO)) {
 //            return \in_array(strtolower($proto[0]), ['https', 'on', 'ssl', '1'], true);
 //        }
-//
-//        $https = $this->server->get('HTTPS');
-//
-//        return !empty($https) && 'off' !== strtolower($https);
-//    }
-//
+
+        $https = $this->server->get('HTTPS');
+
+        return !empty($https) && 'off' !== strtolower($https);
+    }
+
     /**
      * Returns the host name.
      *
@@ -1254,7 +1255,8 @@ class Request
     {
         return strtoupper($this->server->get('REQUEST_METHOD', 'GET'));
     }
-//
+
+//    // TODO замени на ссылки просто
 //    /**
 //     * Gets the mime type associated with the format.
 //     */
@@ -1266,7 +1268,7 @@ class Request
 //
 //        return isset(static::$formats[$format]) ? static::$formats[$format][0] : null;
 //    }
-//
+
 //    /**
 //     * Gets the mime types associated with the format.
 //     *
