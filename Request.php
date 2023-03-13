@@ -435,78 +435,78 @@ class Request
 //    {
 //        self::$requestFactory = $callable;
 //    }
-//
-//    /**
-//     * Clones a request and overrides some of its parameters.
-//     *
-//     * @param array $query      The GET parameters
-//     * @param array $request    The POST parameters
-//     * @param array $attributes The request attributes (parameters parsed from the PATH_INFO, ...)
-//     * @param array $cookies    The COOKIE parameters
-//     * @param array $files      The FILES parameters
-//     * @param array $server     The SERVER parameters
-//     */
-//    public function duplicate(array $query = null, array $request = null, array $attributes = null, array $cookies = null, array $files = null, array $server = null): static
-//    {
-//        $dup = clone $this;
-//        if (null !== $query) {
-//            $dup->query = new InputBag($query);
-//        }
-//        if (null !== $request) {
-//            $dup->request = new InputBag($request);
-//        }
-//        if (null !== $attributes) {
-//            $dup->attributes = new ParameterBag($attributes);
-//        }
-//        if (null !== $cookies) {
-//            $dup->cookies = new InputBag($cookies);
-//        }
-//        if (null !== $files) {
-//            $dup->files = new FileBag($files);
-//        }
-//        if (null !== $server) {
-//            $dup->server = new ServerBag($server);
-//            $dup->headers = new HeaderBag($dup->server->getHeaders());
-//        }
-//        $dup->languages = null;
-//        $dup->charsets = null;
-//        $dup->encodings = null;
-//        $dup->acceptableContentTypes = null;
-//        $dup->pathInfo = null;
-//        $dup->requestUri = null;
-//        $dup->baseUrl = null;
-//        $dup->basePath = null;
-//        $dup->method = null;
-//        $dup->format = null;
-//
-//        if (!$dup->get('_format') && $this->get('_format')) {
-//            $dup->attributes->set('_format', $this->get('_format'));
-//        }
-//
-//        if (!$dup->getRequestFormat(null)) {
-//            $dup->setRequestFormat($this->getRequestFormat(null));
-//        }
-//
-//        return $dup;
-//    }
-//
-//    /**
-//     * Clones the current request.
-//     *
-//     * Note that the session is not cloned as duplicated requests
-//     * are most of the time sub-requests of the main one.
-//     */
-//    public function __clone()
-//    {
-//        $this->query = clone $this->query;
-//        $this->request = clone $this->request;
-//        $this->attributes = clone $this->attributes;
-//        $this->cookies = clone $this->cookies;
-//        $this->files = clone $this->files;
-//        $this->server = clone $this->server;
-//        $this->headers = clone $this->headers;
-//    }
-//
+
+    /**
+     * Clones a request and overrides some of its parameters.
+     *
+     * @param mixed $query      The GET parameters
+     * @param mixed $request    The POST parameters
+     * @param mixed $attributes The request attributes (parameters parsed from the PATH_INFO, ...)
+     * @param mixed $cookies    The COOKIE parameters
+     * @param mixed $files      The FILES parameters
+     * @param mixed $server     The SERVER parameters
+     */
+    public function duplicate($query = null, $request = null, $attributes = null, $cookies = null, $files = null, $server = null): static
+    {
+        $dup = clone $this;
+        if (null !== $query) {
+            $dup->query = new InputBag($query);
+        }
+        if (null !== $request) {
+            $dup->request = new InputBag($request);
+        }
+        if (null !== $attributes) {
+            $dup->attributes = new ParameterBag($attributes);
+        }
+        if (null !== $cookies) {
+            $dup->cookies = new InputBag($cookies);
+        }
+        if (null !== $files) {
+            $dup->files = new FileBag($files);
+        }
+        if (null !== $server) {
+            $dup->server = new ServerBag($server);
+            $dup->headers = new HeaderBag($dup->server->getHeaders());
+        }
+        $dup->languages = null;
+        $dup->charsets = null;
+        $dup->encodings = null;
+        $dup->acceptableContentTypes = null;
+        $dup->pathInfo = null;
+        $dup->requestUri = null;
+        $dup->baseUrl = null;
+        $dup->basePath = null;
+        $dup->method = null;
+        $dup->format = null;
+
+        if (!$dup->get('_format') && $this->get('_format')) {
+            $dup->attributes->set('_format', $this->get('_format'));
+        }
+
+        if (!$dup->getRequestFormat(null)) {
+            $dup->setRequestFormat($this->getRequestFormat(null));
+        }
+
+        return $dup;
+    }
+
+    /**
+     * Clones the current request.
+     *
+     * Note that the session is not cloned as duplicated requests
+     * are most of the time sub-requests of the main one.
+     */
+    public function __clone()
+    {
+        $this->query = clone $this->query;
+        $this->request = clone $this->request;
+        $this->attributes = clone $this->attributes;
+        $this->cookies = clone $this->cookies;
+        $this->files = clone $this->files;
+        $this->server = clone $this->server;
+        $this->headers = clone $this->headers;
+    }
+
 //    public function __toString(): string
 //    {
 //        $content = $this->getContent();

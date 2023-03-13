@@ -46,8 +46,7 @@ class HeaderUtils
     {
         $quotedSeparators = preg_quote($separators, '/');
 
-        preg_match_all('
-            /
+        $pattern = '/
                 (?!\s)
                     (?:
                         # quoted-string
@@ -62,7 +61,9 @@ class HeaderUtils
                 \s*
                 (?<separator>['.$quotedSeparators.'])
                 \s*
-            /x', trim($header), $matches, \PREG_SET_ORDER);
+            /x';
+
+        preg_match_all($pattern, trim($header), $matches, \PREG_SET_ORDER);
 
         return self::groupParts((array)$matches, $separators);
     }
@@ -94,47 +95,51 @@ class HeaderUtils
         return $assoc;
     }
 
-//    /**
-//     * Joins an associative array into a string for use in an HTTP header.
-//     *
-//     * The key and value of each entry are joined with "=", and all entries
-//     * are joined with the specified separator and an additional space (for
-//     * readability). Values are quoted if necessary.
-//     *
-//     * Example:
-//     *
-//     *     HeaderUtils::toString(["foo" => "abc", "bar" => true, "baz" => "a b c"], ",")
-//     *     // => 'foo=abc, bar, baz="a b c"'
-//     */
-//    public static function toString(array $assoc, string $separator): string
-//    {
-//        $parts = [];
-//        foreach ($assoc as $name => $value) {
-//            if (true === $value) {
-//                $parts[] = $name;
-//            } else {
-//                $parts[] = $name.'='.self::quote($value);
-//            }
-//        }
-//
-//        return implode($separator.' ', $parts);
-//    }
-//
-//    /**
-//     * Encodes a string as a quoted string, if necessary.
-//     *
-//     * If a string contains characters not allowed by the "token" construct in
-//     * the HTTP specification, it is backslash-escaped and enclosed in quotes
-//     * to match the "quoted-string" construct.
-//     */
-//    public static function quote(string $s): string
-//    {
-//        if (preg_match('/^[a-z0-9!#$%&\'*.^_`|~-]+$/i', $s)) {
-//            return $s;
-//        }
-//
-//        return '"'.addcslashes($s, '"\\"').'"';
-//    }
+    /**
+     * Joins an associative array into a string for use in an HTTP header.
+     *
+     * The key and value of each entry are joined with "=", and all entries
+     * are joined with the specified separator and an additional space (for
+     * readability). Values are quoted if necessary.
+     *
+     * Example:
+     *
+     *     HeaderUtils::toString(["foo" => "abc", "bar" => true, "baz" => "a b c"], ",")
+     *     // => 'foo=abc, bar, baz="a b c"'
+     *
+     * KPHP:
+     *     The conversion to string is actually thought out,
+     *     since the real type is true|string
+     */
+    public static function toString(array $assoc, string $separator): string
+    {
+        $parts = [];
+        foreach ($assoc as $name => $value) {
+            if (true === (bool)$value) {
+                $parts[] = $name;
+            } else {
+                $parts[] = $name.'='.self::quote((string)$value);
+            }
+        }
+
+        return implode($separator.' ', $parts);
+    }
+
+    /**
+     * Encodes a string as a quoted string, if necessary.
+     *
+     * If a string contains characters not allowed by the "token" construct in
+     * the HTTP specification, it is backslash-escaped and enclosed in quotes
+     * to match the "quoted-string" construct.
+     */
+    public static function quote(string $s): string
+    {
+        if (preg_match('/^[a-z0-9!#$%&\'*.^_`|~-]+$/i', $s)) {
+            return $s;
+        }
+
+        return '"'.addcslashes($s, '"\\"').'"';
+    }
 
     /**
      * Decodes a quoted string.

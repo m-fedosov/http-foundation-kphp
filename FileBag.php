@@ -2,7 +2,7 @@
 
 namespace Symfony\Component\HttpFoundation;
 
-//use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * FileBag is a container for uploaded files.
@@ -29,14 +29,14 @@ class FileBag extends ParameterBag
         $this->add($files);
     }
 
-//    public function set(string $key, $value)
-//    {
+    public function set(string $key, $value)
+    {
 //        if (!\is_array($value) && !$value instanceof UploadedFile) {
 //            throw new \InvalidArgumentException('An uploaded file must be an array or an instance of UploadedFile.');
 //        }
-//
+
 //        parent::set($key, $this->convertFileInformation($value));
-//    }
+    }
 
     /** @param mixed $files */
     public function add($files = [])
@@ -44,17 +44,17 @@ class FileBag extends ParameterBag
         foreach ($files as $key => $file) {
             // $key is always string
             $key = (string)$key;
-//            $this->set($key, $file);
+            $this->set($key, $file);
         }
     }
 
-//    /**
-//     * Converts uploaded files to UploadedFile instances.
-//     *
-//     * @return UploadedFile[]|UploadedFile|null
-//     */
-//    protected function convertFileInformation(array|UploadedFile $file): array|UploadedFile|null
-//    {
+    /**
+     * Converts uploaded files to UploadedFile instances.
+     *
+     * @return UploadedFile[]|UploadedFile|null
+     */
+    protected function convertFileInformation(array|UploadedFile $file): array|UploadedFile|null
+    {
 //        if ($file instanceof UploadedFile) {
 //            return $file;
 //        }
@@ -77,8 +77,8 @@ class FileBag extends ParameterBag
 //        }
 //
 //        return $file;
-//    }
-//
+    }
+
 //    /**
 //     * Fixes a malformed PHP $_FILES array.
 //     *

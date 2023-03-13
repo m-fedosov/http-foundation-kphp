@@ -43,7 +43,7 @@ class JsonResponse extends Response
 
         $json ? $this->setJson((string)$data) : $this->setData($data);
     }
-//
+
 //    /**
 //     * Factory method for chainability.
 //     *
@@ -141,7 +141,7 @@ class JsonResponse extends Response
 //
         return $this->setJson((string)$data);
     }
-//
+
 //    /**
 //     * Returns options used while encoding data to JSON.
 //     */
@@ -149,7 +149,7 @@ class JsonResponse extends Response
 //    {
 //        return $this->encodingOptions;
 //    }
-//
+
 //    /**
 //     * Sets options used while encoding data to JSON.
 //     *
